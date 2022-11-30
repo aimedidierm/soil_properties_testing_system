@@ -2,7 +2,7 @@
 define('DB_USER', 'aimedidierm');
 define('DB_PASS', 'MUdidier@123');
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'soil_quality');
+define('DB_NAME', 'soil_properties_testing_system');
 
 $db = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS);
 if (!is_null($db->errorCode())) {

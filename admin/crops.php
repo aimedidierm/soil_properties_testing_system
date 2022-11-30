@@ -6,7 +6,7 @@ require 'php-includes/check-login.php';
 <html>
 <head>
 
-	<title>Crops</title>
+	<title>Parameters</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -19,19 +19,17 @@ require 'php-includes/check-login.php';
 <?php require 'php-includes/menu.php'; ?>
 <div class="container">
 	<div class="row">
-	<h1>Crops management</h2>
+	<h1>Parameter management</h2>
 		<table width="100%" class="table table-striped table-bordered table-hover" id="chatRoom">
         <thead>
-            <th>N</th>
 			<th>Names</th>
 			<th>N</th>
 			<th>P</th>
 			<th>K</th>
-			<th></th>
 		</thead>
 		<tbody>
 		<?php
-			$sql = "SELECT * FROM crops";
+			$sql = "SELECT * FROM crops limit 1";
 			$stmt = $db->prepare($sql);
 			$stmt->execute();
 			if ($stmt->rowCount() > 0) {
@@ -39,32 +37,19 @@ require 'php-includes/check-login.php';
 				while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 				?>
 			<tr>
-			    <td><?php print $count?></td>
                 <td><?php print $row['names']?></td>
 				<td><?php print $row['n']?></td>
 				<td><?php print $row['p']?></td>
 				<td><?php print $row['k']?></td>
-				<td><form method="POST"><button type="submit" class="btn btn-danger" id="<?php echo $row["id"];$mid=$row["id"]; ?>" name="delete"><span class="glyphicon glyphicon-trash"></span> Delete</button><form></td>
-
 			</tr>
 			<?php
 			$count++;
 			}
 		}
-		if(isset($_POST['delete'])){
-		$sql ="DELETE FROM crops WHERE id = ?";
-		$stm = $db->prepare($sql);
-		if ($stm->execute(array($mid))) {
-			print "<script>alert('Crop deleted');window.location.assign('crops.php')</script>";
-
-		} else {
-			print "<script>alert('Delete fail');window.location.assign('crops.php')</script>";
-		}
-		}
 		?>
         </tbody>
     	</table> 
-		<h1>Add new crop</h1>
+		<h1>Update parameters</h1>
 		    <form method="POST">
 			<?php
 			if(isset($_POST['crop'])){
@@ -72,10 +57,10 @@ require 'php-includes/check-login.php';
 			$n=$_POST['n'];
 			$p=$_POST['p'];
 			$k=$_POST['k'];
-				$sql ="INSERT INTO crops (names, n, p, k) VALUES (?,?,?,?)";
+				$sql ="UPDATE crops SET names = ?,n = ?,p = ?,k = ? WHERE id=1";
 				$stm = $db->prepare($sql);
 			if ($stm->execute(array($unames, $n, $p, $k))) {
-				print "<script>alert('Crop Registered');window.location.assign('crops.php')</script>";
+				print "<script>alert('Data updated');window.location.assign('crops.php')</script>";
 			} else{
 				echo "<script>alert('Fail');window.location.assign('crops.php')</script>";
 			}
@@ -98,7 +83,7 @@ require 'php-includes/check-login.php';
 				<span class="input-group-addon" style="width:150px;">K:</span>
 				<input type="text" style="width:350px;" class="form-control" name="k">
 			</div>
-			<button type="submit" class="btn btn-success" name="crop"><span class="glyphicon glyphicon-save"></span> Save</button>
+			<button type="submit" class="btn btn-success" name="crop"><span class="glyphicon glyphicon-save"></span> Update</button>
 		
 		</div> 
 	</form>

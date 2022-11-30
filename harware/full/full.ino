@@ -31,6 +31,7 @@ void loop() {
   delay(250);
   buttonState = digitalRead(buttonPin);
   if (buttonState == HIGH) {
+    Serial.print((String)"?n="+val1+"&p="+val2+"&k="+val3);
     Serial.print("Nitrogen: ");
   Serial.print(val1);
   Serial.println(" mg/kg");

@@ -26,7 +26,7 @@ require 'php-includes/check-login.php';
 			<th>N</th>
 			<th>P</th>
 			<th>K</th>
-            <th>Recomanded</th>
+            <th>Decision</th>
             <th>Address</th>
 		</thead>
 		<tbody>
