@@ -1,5 +1,8 @@
-//https://how2electronics.com/measure-soil-nutrient-using-arduino-soil-npk-sensor/
 #include <SoftwareSerial.h>
+#include <Wire.h> 
+#include <LiquidCrystal_I2C.h>
+#include <ArduinoJson.h>
+LiquidCrystal_I2C lcd(0x27,20,4);  // set the LCD address to 0x27 for a 16 chars and 2 line display
 
 
 #define RE 8
@@ -9,16 +12,25 @@ const byte nitro[] = {0x01,0x03, 0x00, 0x1e, 0x00, 0x01, 0xe4, 0x0c};
 const byte phos[] = {0x01,0x03, 0x00, 0x1f, 0x00, 0x01, 0xb5, 0xcc};
 const byte pota[] = {0x01,0x03, 0x00, 0x20, 0x00, 0x01, 0x85, 0xc0};
 
-int buttonState = 0;
+int buttonState = 0,k=0;
 byte values[11];
 SoftwareSerial mod(2,3);
- 
+String data="";
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
   mod.begin(9600);
+  lcd.init();                      // initialize the lcd 
+  lcd.init();
+  // Print a message to the LCD.
+  lcd.backlight();
   pinMode(RE, OUTPUT);
   pinMode(DE, OUTPUT);
   pinMode(buttonPin, INPUT);
+  lcd.setCursor(0,0);
+  lcd.print("Soil properties");
+  lcd.setCursor(0,1);
+  lcd.print("testing system");
+  delay(4000);
 }
  
 void loop() {
@@ -29,18 +41,51 @@ void loop() {
   delay(250);
   val3 = potassium();
   delay(250);
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("Press button");
+  lcd.setCursor(0,1);
+  lcd.print("to correct values");
   buttonState = digitalRead(buttonPin);
   if (buttonState == HIGH) {
-    Serial.print((String)"?n="+val1+"&p="+val2+"&k="+val3);
-    Serial.print("Nitrogen: ");
-  Serial.print(val1);
-  Serial.println(" mg/kg");
-  Serial.print("Phosphorous: ");
-  Serial.print(val2);
-  Serial.println(" mg/kg");
-  Serial.print("Potassium: ");
-  Serial.print(val3);
-  Serial.println(" mg/kg");
+    lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("N:");
+    lcd.print(val1);
+    lcd.print(" ");
+    lcd.print("P:");
+    lcd.print(val2);
+    lcd.print(" ");
+    lcd.setCursor(0,1);
+    lcd.print("K:");
+    lcd.print(val3);
+    lcd.print(" ");
+    delay(1000);
+    Serial.print((String)"n="+val1+"&p="+val2+"&k="+val3);
+    while(k==0){
+      if (Serial.available() > 0) {
+        data = Serial.readStringUntil('\n');
+      DynamicJsonBuffer jsonBuffer;
+      JsonObject& root = jsonBuffer.parseObject(data);
+      if (root["cstatus"]) {
+      int cstatus = root["cstatus"];
+      int perc = root["percentage"];
+      if(cstatus==1){
+        lcd.clear();
+        lcd.setCursor(0, 0);
+        lcd.print("Percentage:");
+        lcd.print(perc);
+        rec();
+        } else if (cstatus==2){
+          lcd.clear();
+          lcd.setCursor(0, 0);
+          lcd.print("Percentage:");
+          lcd.print(perc);
+          notrec();
+          }
+      }
+      }
+      }
   }
 }
  
@@ -94,3 +139,13 @@ byte potassium(){
   }
   return values[4];
 }
+void rec(){
+  lcd.clear();
+  lcd.print("Recommended here:");
+  delay(3000);
+  }
+void notrec(){
+  lcd.clear();
+  lcd.print("Not ecommended here:");
+  delay(3000);
+  }
