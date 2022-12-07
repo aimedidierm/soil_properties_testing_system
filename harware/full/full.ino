@@ -65,10 +65,11 @@ void loop() {
     while(k==0){
       if (Serial.available() > 0) {
         data = Serial.readStringUntil('\n');
+      Serial.println(data);
       DynamicJsonBuffer jsonBuffer;
       JsonObject& root = jsonBuffer.parseObject(data);
-      if (root["cstatus"]) {
-      int cstatus = root["cstatus"];
+      if (root["c"]) {
+      int cstatus = root["c"];
       int perc = root["percentage"];
       if(cstatus==1){
         lcd.clear();
