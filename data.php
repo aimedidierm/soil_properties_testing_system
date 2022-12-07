@@ -17,13 +17,13 @@ if(isset($_POST['n'])&&($_POST['p'])&&($_POST['k'])){
         $reco="Not recomanded";
         //$data = array("c" =>"1","b" =>"20"); 
         //echo $response = json_encode($data);
-        $arr = array('c' => 1,'b' => 2)."\n";
+        $arr = array('c' => 1,'b' => 2);
         echo $data = json_encode($arr)."\n";
     } else {
         $reco="Recomanded";
         $//data = array("c" =>"2","b" =>"20"); 
         //echo $response = json_encode($data);
-        $arr = array('c' => 2,'b' => 2)."\n";
+        $arr = array('c' => 2,'b' => 2);
         echo $data = json_encode($arr)."\n";
     }
     //insert data in database
