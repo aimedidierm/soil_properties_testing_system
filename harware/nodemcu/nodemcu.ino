@@ -5,7 +5,9 @@
 SoftwareSerial s(3,1);
 const char* ssid = "Fulgence";
 const char* password = "Offerorf12";
-String serverName = "http://137.184.232.255/soil_properties_testing_system/data.php";
+//String serverName = "http://137.184.232.255/soil_properties_testing_system/data.php";
+//String serverName = "http://didier.requestcatcher.com/";
+String serverName = "http://192.168.43.76/smart_door_lock_security_system_using_rfid_card_reader/data.php";
 void setup() {
   s.begin(9600);
   WiFi.begin(ssid, password);

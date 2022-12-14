@@ -13,23 +13,39 @@ if(isset($_POST['n'])&&($_POST['p'])&&($_POST['k'])){
     $pdata=$row['p'];
     $kdata=$row['k'];
     //condition
-    if($n>=$ndata){
-        $reco="Not recomanded";
-        //$data = array("c" =>"1","b" =>"20"); 
-        //echo $response = json_encode($data);
+    if($n>$ndata){
         $arr = array('c' => 1,'b' => 2);
+        $de="HIGH";
+        echo $data = json_encode($arr)."\n";
+    } else if($p>$pdata){
+        $arr = array('c' => 1,'b' => 2);
+        $de="HIGH";
+        echo $data = json_encode($arr)."\n";
+    } else if($k>$kdata){
+        $arr = array('c' => 1,'b' => 2);
+        $de="HIGH";
+        echo $data = json_encode($arr)."\n";
+    } else if($n<$ndata){
+        $arr = array('c' => 3,'b' => 2);
+        $de="LOW";
+        echo $data = json_encode($arr)."\n";
+    } else if($p<$pdata){
+        $arr = array('c' => 3,'b' => 2);
+        $de="LOW";
+        echo $data = json_encode($arr)."\n";
+    } else if($k<$kdata){
+        $arr = array('c' => 3,'b' => 2);
+        $de="LOW";
         echo $data = json_encode($arr)."\n";
     } else {
-        $reco="Recomanded";
-        $//data = array("c" =>"2","b" =>"20"); 
-        //echo $response = json_encode($data);
         $arr = array('c' => 2,'b' => 2);
+        $de="ENOGHT";
         echo $data = json_encode($arr)."\n";
     }
     //insert data in database
-    $sql ="INSERT INTO dataa (n,p,k,recomanded,address) VALUES (?,?,?,'Recommanded','656526263263,8484555')";
+    $sql ="INSERT INTO dataa (n,p,k,recomanded,address) VALUES (?,?,?,?,'656526263263,8484555')";
     $stm = $db->prepare($sql);
-    if ($stm->execute(array($n,$p,$k))) {
+    if ($stm->execute(array($n,$p,$k,$de))) {
         //
     } else{
         //

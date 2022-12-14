@@ -28,6 +28,7 @@ require 'php-includes/check-login.php';
 			<th>K</th>
             <th>Decision</th>
             <th>Address</th>
+			<th></th>
 		</thead>
 		<tbody>
 		<?php
@@ -45,6 +46,7 @@ require 'php-includes/check-login.php';
 				<td><?php print $row['k']?></td>
                 <td><?php print $row['recomanded']?></td>
                 <td><?php print $row['address']?></td>
+				<td><form method="post"><button type="submit" class="btn btn-danger" id="<?php echo $row["id"];$sid=$row["id"];?>" name="delete"><span class="glyphicon glyphicon-trash"></span> Delete</button></form></td>
 			</tr>
 			<?php
 			$count++;
@@ -52,13 +54,13 @@ require 'php-includes/check-login.php';
 		}
 		//gusiba umu client
 		if(isset($_POST['delete'])){
-		$sql ="DELETE FROM crops WHERE id = ?";
+		$sql ="DELETE FROM dataa WHERE id = ?";
 		$stm = $db->prepare($sql);
 		if ($stm->execute(array($mid))) {
-			print "<script>alert('Crop deleted');window.location.assign('crops.php')</script>";
+			print "<script>alert('Crop deleted');window.location.assign('data.php')</script>";
 
 		} else {
-			print "<script>alert('Delete fail');window.location.assign('crops.php')</script>";
+			print "<script>alert('Delete fail');window.location.assign('data.php')</script>";
 		}
 		}
 		?>

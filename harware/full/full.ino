@@ -74,15 +74,24 @@ void loop() {
       if(cstatus==1){
         lcd.clear();
         lcd.setCursor(0, 0);
-        lcd.print("Percentage:");
-        lcd.print(perc);
-        rec();
+        lcd.print("NPK value:");
+        lcd.setCursor(0, 1);
+        lcd.print("is high");
+        delay(3000);
         } else if (cstatus==2){
           lcd.clear();
           lcd.setCursor(0, 0);
-          lcd.print("Percentage:");
-          lcd.print(perc);
-          notrec();
+          lcd.print("NPK value:");
+          lcd.setCursor(0, 1);
+          lcd.print("is enouth");
+          delay(3000);
+          } else if (cstatus==3){
+          lcd.clear();
+          lcd.setCursor(0, 0);
+          lcd.print("NPK value:");
+          lcd.setCursor(0, 1);
+          lcd.print("is low");
+          delay(3000);
           }
       }
       }
@@ -140,13 +149,3 @@ byte potassium(){
   }
   return values[4];
 }
-void rec(){
-  lcd.clear();
-  lcd.print("Recommended here:");
-  delay(3000);
-  }
-void notrec(){
-  lcd.clear();
-  lcd.print("Not ecommended here:");
-  delay(3000);
-  }
