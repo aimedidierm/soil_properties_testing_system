@@ -27,7 +27,6 @@ require 'php-includes/check-login.php';
 			<th>P</th>
 			<th>K</th>
             <th>Decision</th>
-            <th>Address</th>
 			<th></th>
 		</thead>
 		<tbody>
@@ -45,7 +44,6 @@ require 'php-includes/check-login.php';
 				<td><?php print $row['p']?></td>
 				<td><?php print $row['k']?></td>
                 <td><?php print $row['recomanded']?></td>
-                <td><?php print $row['address']?></td>
 				<td><form method="post"><button type="submit" class="btn btn-danger" id="<?php echo $row["id"];$sid=$row["id"];?>" name="delete"><span class="glyphicon glyphicon-trash"></span> Delete</button></form></td>
 			</tr>
 			<?php
