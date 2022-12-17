@@ -54,7 +54,7 @@ require 'php-includes/check-login.php';
 		if(isset($_POST['delete'])){
 		$sql ="DELETE FROM dataa WHERE id = ?";
 		$stm = $db->prepare($sql);
-		if ($stm->execute(array($mid))) {
+		if ($stm->execute(array($sid))) {
 			print "<script>alert('Crop deleted');window.location.assign('data.php')</script>";
 
 		} else {
