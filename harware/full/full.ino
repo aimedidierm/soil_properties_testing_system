@@ -70,7 +70,6 @@ void loop() {
       JsonObject& root = jsonBuffer.parseObject(data);
       if (root["c"]) {
       int cstatus = root["c"];
-      int perc = root["percentage"];
       if(cstatus==1){
         lcd.clear();
         lcd.setCursor(0, 0);
