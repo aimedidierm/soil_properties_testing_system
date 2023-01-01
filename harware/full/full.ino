@@ -59,7 +59,7 @@ void loop() {
     lcd.setCursor(0,1);
     lcd.print("K:");
     lcd.print(val3);
-    lcd.print(" ");
+    lcd.print("  (mg/kg)");
     delay(1000);
     Serial.print((String)"n="+val1+"&p="+val2+"&k="+val3);
     while(k==0){
